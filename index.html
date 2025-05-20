@@ -1,0 +1,718 @@
+<!DOCTYPE html><html lang="de"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NS-Zeit und deutsche Wirtschaft | Historische Dokumentation</title>
+    <style>
+        :root {
+            --primary-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --text-color: #1d1d1f;
+            --secondary-text: #86868b;
+            --background: #ffffff;
+            --section-bg: #f5f5f7;
+            --accent: #0071e3;
+            --border: #d2d2d7;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 40px;
+            --spacing-xxl: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        html {
+            scroll-padding-top: 44px; /* Für Anker-Links mit sticky Header */
+        }
+
+        body {
+            font-family: var(--primary-font);
+            color: var(--text-color);
+            background-color: var(--background);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 44px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-lg);
+        }
+
+        .nav-link {
+            color: var(--secondary-text);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-color);
+        }
+
+        .hero {
+            padding: var(--spacing-xxl) 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: -0.003em;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: var(--secondary-text);
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto var(--spacing-xl);
+        }
+
+        .section {
+            padding: var(--spacing-xl) 0;
+            border-bottom: 1px solid var(--border);
+            scroll-margin-top: 60px; /* Für Anker-Links mit sticky Header */
+        }
+
+        .section:nth-child(even) {
+            background-color: var(--section-bg);
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            scroll-margin-top: 60px;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+            scroll-margin-top: 60px; /* Für potenzielle Sub-Anker-Links */
+        }
+
+        p {
+            font-size: 17px;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .article {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .article-summary {
+            font-size: 20px;
+            color: var(--secondary-text);
+            margin-bottom: var(--spacing-xl);
+            font-weight: 400;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        .overview-item {
+            background-color: var(--background);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .overview-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .overview-content {
+            padding: var(--spacing-lg);
+        }
+
+        .overview-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .overview-text {
+            color: var(--secondary-text);
+            font-size: 15px;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .read-more {
+            display: inline-block;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        .back-to-top:hover {
+            background-color: #005bb5;
+        }
+
+        .back-to-top svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Bilder und Bildunterschriften */
+        .image-container {
+            margin: var(--spacing-lg) 0;
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-caption {
+            color: var(--secondary-text);
+            font-size: 14px;
+            margin-top: var(--spacing-sm);
+            text-align: center;
+        }
+
+        /* Listen */
+        ul {
+            margin-bottom: var(--spacing-md);
+            margin-left: var(--spacing-md);
+        }
+
+        li {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        footer {
+            background-color: var(--section-bg);
+            padding: var(--spacing-xl) 0;
+            color: var(--secondary-text);
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-link {
+            color: var(--secondary-text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+            color: var(--text-color);
+        }
+
+        /* Modal für Impressum, Datenschutz etc. */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: white;
+            max-width: 600px;
+            margin: 80px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            color: var(--secondary-text);
+            cursor: pointer;
+            background: none;
+            border: none;
+            line-height: 1;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+            
+            .subtitle {
+                font-size: 20px;
+            }
+            
+            h2 {
+                font-size: 28px;
+            }
+            
+            .article-summary {
+                font-size: 18px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .modal-content {
+                margin: 60px auto;
+                padding: 20px;
+            }
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 44px;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            z-index: 99;
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 15px 0;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 18px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mobile-nav a:last-child {
+            border-bottom: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-nav-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="nav">
+                <div class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Historische Dokumentation</div>
+                <div class="nav-links">
+                    <a href="#überblick" class="nav-link">Überblick</a>
+                    <a href="#textilindustrie" class="nav-link">Textilindustrie</a>
+                    <a href="#ernaehrung" class="nav-link">Ernährungsindustrie</a>
+                    <a href="#arbeitsmarkt" class="nav-link">Arbeitsmarkt</a>
+                </div>
+                <button class="mobile-nav-toggle" onclick="toggleMobileNav()">☰</button>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="mobile-nav" id="mobileNav">
+        <a href="#überblick" onclick="closeMobileNav()">Überblick</a>
+        <a href="#textilindustrie" onclick="closeMobileNav()">Textilindustrie</a>
+        <a href="#ernaehrung" onclick="closeMobileNav()">Ernährungsindustrie</a>
+        <a href="#arbeitsmarkt" onclick="closeMobileNav()">Arbeitsmarkt</a>
+    </div>
+
+    <div class="hero">
+        <div class="container">
+            <h1>NS-Zeit und deutsche Wirtschaft</h1>
+            <p class="subtitle">Wirtschaftliche Entwicklungen und strukturelle Veränderungen im Dritten Reich (1933-1945)</p>
+        </div>
+    </div>
+
+    <section class="section" id="überblick">
+        <div class="container">
+            <div class="article">
+                <h2>Überblick</h2>
+                <p class="article-summary">Die nationalsozialistische Herrschaft hatte tiefgreifende Auswirkungen auf alle Bereiche der deutschen Wirtschaft – von der Bekämpfung der Massenarbeitslosigkeit bis zur totalen Kriegswirtschaft.</p>
+                
+                <p>Nach der Machtübernahme 1933 sahen sich die Nationalsozialisten mit einer schweren Wirtschaftskrise und rund sechs Millionen Arbeitslosen konfrontiert. Die wirtschaftliche Erholung und schnelle Aufrüstung wurden zu zentralen Zielen des Regimes. Durch staatliche Eingriffe, öffentliche Bauvorhaben und die Rüstungsindustrie gelang es, die Arbeitslosigkeit zu senken.</p>
+                
+                <p>Mit Kriegsbeginn wandelte sich die deutsche Wirtschaft vollständig zur zentralistisch organisierten Kriegswirtschaft, die auf maximale Ressourcennutzung für die Kriegsführung ausgerichtet war. Diese Entwicklung führte schließlich zum vollständigen wirtschaftlichen Zusammenbruch Deutschlands bis 1945.</p>
+            </div>
+            
+            <div class="overview-grid">
+                <div class="overview-item">
+                    <div class="overview-content">
+                        <h3 class="overview-title">Textilindustrie</h3>
+                        <p class="overview-text">Synthetische Fasern und Mangelwirtschaft prägten die Entwicklung. Zwangsarbeit war weitverbreitet.</p>
+                        <a href="#textilindustrie" class="read-more">Mehr lesen</a>
+                    </div>
+                </div>
+                
+                <div class="overview-item">
+                    <div class="overview-content">
+                        <h3 class="overview-title">Ernährungswirtschaft</h3>
+                        <p class="overview-text">Autarkie und staatliche Kontrolle führten zu Rationierung und Qualitätsverlusten bei Lebensmitteln.</p>
+                        <a href="#ernaehrung" class="read-more">Mehr lesen</a>
+                    </div>
+                </div>
+                
+                <div class="overview-item">
+                    <div class="overview-content">
+                        <h3 class="overview-title">Arbeitsmarkt</h3>
+                        <p class="overview-text">Die Ausbeutung von Zwangsarbeitern wurde zum integralen Bestandteil der Kriegswirtschaft.</p>
+                        <a href="#arbeitsmarkt" class="read-more">Mehr lesen</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="textilindustrie">
+        <div class="container">
+            <div class="article">
+                <h2>Textilindustrie im Nationalsozialismus</h2>
+                
+                <p class="article-summary">Die NS-Zeit hatte tiefgreifende Auswirkungen auf die deutsche Textilindustrie, die sich in verschiedenen Aspekten widerspiegelten.</p>
+                
+                <div class="image-container">
+                    <img src="http://www.buehler-hd.de/landeskunde/rhein/geschichte/expo/hdg/arbeit/textil.jpg" alt="Textilfabrik in Deutschland während der NS-Zeit">
+                    <p class="image-caption">Textilfabrikation während der NS-Zeit</p>
+                </div>
+                
+                <h3>Wirtschaftliche Umstrukturierung und Kriegsvorbereitung</h3>
+                <ul>
+                    <li><strong>Autarkiebestrebungen:</strong> Das NS-Regime verfolgte das Ziel einer wirtschaftlichen Autarkie, um unabhängiger von Importen zu werden. Dies führte zu verstärkten Bemühungen, synthetische Fasern (wie Zellwolle) im Inland zu produzieren und den Anbau von Rohstoffen wie Flachs und Hanf zu fördern.</li>
+                    <li><strong>Aufrüstung:</strong> Die Textilindustrie spielte eine wichtige Rolle bei der Aufrüstung der Wehrmacht. Sie lieferte Uniformen, Zelte, Fallschirme und andere militärische Ausrüstung in großem Umfang. Dies führte zu einer Verlagerung der Produktionsschwerpunkte und einer starken staatlichen Lenkung der Industrie.</li>
+                    <li><strong>Mangelwirtschaft:</strong> Mit Fortschreiten des Zweiten Weltkriegs und der zunehmenden Ressourcenknappheit wurde die Textilproduktion stark eingeschränkt. Bezugsscheine für Kleidung wurden eingeführt, und die Qualität der Textilien nahm ab. "Notkleidung" und die Wiederverwendung alter Kleidungsstücke gewannen an Bedeutung.</li>
+                </ul>
+                
+                <h3>Politische und soziale Auswirkungen</h3>
+                <ul>
+                    <li><strong>Gleichschaltung:</strong> Wie alle Bereiche der Wirtschaft und Gesellschaft wurde auch die Textilindustrie "gleichgeschaltet". Jüdische Unternehmer und leitende Angestellte wurden enteignet und vertrieben. Organisationen und Verbände der Textilwirtschaft wurden in NS-Organisationen überführt.</li>
+                    <li><strong>Zwangsarbeit:</strong> Während des Zweiten Weltkriegs wurde Zwangsarbeit in der Textilindustrie in großem Umfang eingesetzt. KZ-Häftlinge, Kriegsgefangene und Zivilarbeiter aus besetzten Gebieten mussten unter unmenschlichen Bedingungen in Textilfabriken arbeiten.</li>
+                    <li><strong>Ideologische Instrumentalisierung:</strong> Mode und Kleidung wurden auch ideologisch instrumentalisiert. Trachtenmode und Uniformen wurden gefördert und stilisiert, um das Bild einer "Volksgemeinschaft" zu propagieren. Gleichzeitig wurden bestimmte Kleidungsstile und -stücke, die als "undeutsch" galten, abgelehnt.</li>
+                </ul>
+                
+                <h3>Nachkriegszeit</h3>
+                <ul>
+                    <li><strong>Demilitarisierung und Umstellung:</strong> Nach dem Ende des Zweiten Weltkriegs musste die Textilindustrie ihre Produktion auf zivile Güter umstellen. Die Demilitarisierung und die Reparationsforderungen der Alliierten stellten die Unternehmen vor große Herausforderungen.</li>
+                    <li><strong>Wiederaufbau:</strong> Trotz der Zerstörungen und Engpässe trug die Textilindustrie maßgeblich zum Wiederaufbau der deutschen Wirtschaft bei. Die Nachfrage nach Kleidung und Textilien war enorm.</li>
+                    <li><strong>Strukturwandel:</strong> Langfristig war die NS-Zeit jedoch auch ein Beschleuniger für den Strukturwandel in der Textilindustrie. Die Verlagerung der Produktion in Niedriglohnländer und der zunehmende Wettbewerb führten später zu einem Rückgang der Bedeutung der deutschen Textilindustrie.</li>
+                </ul>
+                
+                <p>Zusammenfassend lässt sich sagen, dass die NS-Zeit die deutsche Textilindustrie tiefgreifend prägte. Sie wurde in den Dienst der Kriegswirtschaft gestellt, erlebte staatliche Kontrolle und den Einsatz von Zwangsarbeit. Nach dem Krieg musste sie sich neu orientieren und trug zum Wiederaufbau bei, sah sich aber auch langfristigen strukturellen Veränderungen gegenüber.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="ernaehrung">
+        <div class="container">
+            <div class="article">
+                <h2>Lebensmittelindustrie und Ernährung</h2>
+                
+                <p class="article-summary">Die NS-Zeit hatte tiefgreifende und widersprüchliche Auswirkungen auf die deutsche Lebensmittelindustrie und die Ernährung der Bevölkerung.</p>
+                
+                <div class="image-container">
+                    <img src="https://www.historisches-lexikon-bayerns.de/images/3/3e/Artikel_46339_bilder_value_1_versorgungskrise1.jpg" alt="Gemüsestand auf einem Markt während der NS-Zeit">
+                    <p class="image-caption">Lebensmittelmarkt während der NS-Zeit</p>
+                </div>
+                
+                <h3>Wirtschaftliche und politische Auswirkungen</h3>
+                <ul>
+                    <li><strong>Autarkiebestrebungen:</strong> Die NS-Regierung strebte eine größtmögliche Unabhängigkeit von Lebensmittelimporten an, um im Falle eines Krieges versorgt zu sein. Dies führte zu einer verstärkten Förderung der heimischen Landwirtschaft durch Subventionen und Preiskontrollen.</li>
+                    <li><strong>Staatliche Kontrolle und Lenkung:</strong> Der Staat griff stark in die Lebensmittelproduktion und -verteilung ein. Das "Reichsnährstand" wurde geschaffen, eine Organisation, die alle Bereiche der Landwirtschaft und Ernährungswirtschaft umfasste und streng kontrollierte.</li>
+                    <li><strong>Preisregulierung:</strong> Um die Versorgung der Bevölkerung zu gewährleisten und Preisspekulationen zu verhindern, wurden die Preise vieler landwirtschaftlicher Produkte staatlich festgelegt.</li>
+                    <li><strong>Einschränkung der Konsumfreiheit:</strong> Die Konsumauswahl wurde eingeschränkt, da der Fokus auf Grundnahrungsmitteln lag und Importe begrenzt wurden.</li>
+                    <li><strong>Förderung bestimmter Produkte:</strong> Bestimmte Nahrungsmittel wie Kartoffeln und Roggenbrot wurden als "typisch deutsch" gefördert, während der Konsum anderer Produkte wie Fleisch und Eier sank. So sank der Konsum von Fleisch zwischen 1927 und 1937 um 17%, der von Milch um 21% und der von Eiern um 46%.</li>
+                    <li><strong>Margarine-Politik:</strong> Eine bizarre Maßnahme war die Zwangsmischung von teurer Butter in billige Margarine, was Margarine verteuerte und weniger attraktiv für ärmere Konsumenten machte und gleichzeitig den Importbedarf an Rohstoffen für die Margarineproduktion senkte.</li>
+                </ul>
+                
+                <h3>Auswirkungen auf die Ernährung der Bevölkerung</h3>
+                <ul>
+                    <li><strong>Vereinfachung und Verbilligung der Ernährung:</strong> Die Ernährung wurde insgesamt einfacher und kostengünstiger. Brot, Kartoffeln und Eintöpfe wurden zu Hauptnahrungsmitteln.</li>
+                    <li><strong>Qualitätsverluste:</strong> Rationierung und der Fokus auf Quantität anstelle von Qualität führten zu einer Verschlechterung der Nährstoffversorgung breiter Bevölkerungsschichten, insbesondere in den Städten. Es gab Hinweise auf einen "kontinuierlichen und chronischen Zustand der Unterernährung" bei einigen Deutschen.</li>
+                    <li><strong>Propaganda für "gesunde" Ernährung:</strong> Gleichzeitig propagierte die NS-Regierung eine "natürliche" und vollwertige Ernährung mit viel Gemüse und Vollkornprodukten, was jedoch im Widerspruch zur tatsächlichen Versorgungslage stand.</li>
+                    <li><strong>Kriegsbedingte Mangelernährung:</strong> Während des Zweiten Weltkriegs verschärfte sich die Situation dramatisch. Rationierung, Lebensmittelknappheit und die Umleitung von Ressourcen zur Versorgung der Wehrmacht führten zu weit verbreiteter Mangelernährung in der Zivilbevölkerung.</li>
+                    <li><strong>Ungleichheit:</strong> Während die "Volksgemeinschaft" propagiert wurde, gab es erhebliche Unterschiede in der Lebensmittelversorgung. Zwangsarbeiter und Insassen von Konzentrationslagern erhielten deutlich weniger und qualitativ schlechtere Nahrungsmittel.</li>
+                </ul>
+                
+                <p>Die NS-Zeit führte zu einer starken staatlichen Steuerung der Lebensmittelindustrie mit dem Ziel der Autarkie und Kriegsvorbereitung. Dies hatte zur Folge, dass sich die Ernährung der deutschen Bevölkerung vereinfachte, die Qualität sank und es zu Mangelerscheinungen kam, insbesondere während des Krieges. Während propagandistisch eine "gesunde" und "natürliche" Ernährung propagiert wurde, sah die Realität für viele Menschen anders aus.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="arbeitsmarkt">
+        <div class="container">
+            <div class="article">
+                <h2>Arbeitsmarkt und Arbeitseinsatz</h2>
+                
+                <p class="article-summary">Die Arbeitsmarktpolitik des NS-Regimes durchlief verschiedene Phasen: von der Bekämpfung der Massenarbeitslosigkeit bis hin zum extremen Arbeitskräftemangel während des Krieges.</p>
+                
+                <h3>Arbeitsbeschaffung (1933-1936)</h3>
+                <p>Die anfänglichen Arbeitsbeschaffungsmaßnahmen wie der Reichsarbeitsdienst, öffentliche Bauprojekte und die Förderung der Rüstungsindustrie halfen, die Arbeitslosigkeit zu reduzieren. Der Dienst in der stark wachsenden Wehrmacht absorbierte ebenfalls viele Arbeitslose.</p>
+                
+                <h3>Arbeitskräftelenkung</h3>
+                <p>Mit fortschreitender Aufrüstung und später im Krieg wurden Arbeitskräfte zunehmend staatlich gelenkt. Durch die Einführung von Arbeitsbüchern und Dienstverpflichtungen kontrollierte der Staat, wer wo arbeiten durfte. Frauen wurden verstärkt in den Arbeitsprozess eingebunden, was im Widerspruch zur anfänglichen NS-Ideologie der Frau als Hausfrau und Mutter stand.</p>
+                
+                <h3>Zwangsarbeit</h3>
+                <p>Die größte Veränderung des Arbeitsmarktes im Krieg war der massive Einsatz von Zwangsarbeitern. Millionen von Menschen aus den besetzten Gebieten wurden nach Deutschland verschleppt und zur Arbeit gezwungen. Ihre Arbeits- und Lebensbedingungen waren oft katastrophal, besonders für "Ostarbeiter" und KZ-Häftlinge, die in der Rüstungsindustrie eingesetzt wurden.</p>
+                
+                <p>Zum Kriegsende arbeiteten etwa 7,5 Millionen ausländische Zwangsarbeiter in Deutschland, was etwa einem Viertel aller Arbeitskräfte entsprach. Die deutsche Kriegswirtschaft war damit fundamental auf Zwangsarbeit angewiesen.</p>
+                
+                <p>Die Ausnutzung von Zwangsarbeitern zeigte sich in allen Wirtschaftsbereichen - von der Textilindustrie über die Landwirtschaft bis hin zur Rüstungsproduktion. Diese systematische Ausbeutung war ein fundamentaler Bestandteil der NS-Wirtschaftspolitik und trug maßgeblich zur Aufrechterhaltung der Kriegswirtschaft bei.</p>
+            </div>
+        </div>
+    </section>
+
+    <a href="#" class="back-to-top" id="backToTop">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </a>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#" class="footer-link" onclick="openModal('impressumModal'); return false;">Impressum</a>
+                <a href="#" class="footer-link" onclick="openModal('datenschutzModal'); return false;">Datenschutz</a>
+                <a href="#" class="footer-link" onclick="openModal('quellenModal'); return false;">Quellenangaben</a>
+                <a href="#" class="footer-link" onclick="openModal('kontaktModal'); return false;">Kontakt</a>
+            </div>
+            <p>© 2025 Historische Dokumentation. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="impressumModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('impressumModal')">×</button>
+            <h3 class="modal-title">Impressum</h3>
+            <p>Historische Dokumentation GmbH<br>
+            Geschichtsstraße 123<br>
+            10115 Berlin</p>
+            <p>Telefon: +49 30 123456789<br>
+            E-Mail: info@historische-dokumentation.de</p>
+            <p>Geschäftsführer: Dr. Max Mustermann<br>
+            Handelsregister: Amtsgericht Berlin HRB 123456</p>
+            <p>Umsatzsteuer-ID: DE123456789</p>
+        </div>
+    </div>
+
+    <div id="datenschutzModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('datenschutzModal')">×</button>
+            <h3 class="modal-title">Datenschutzerklärung</h3>
+            <p>Diese Datenschutzerklärung klärt Sie über die Art, den Umfang und Zweck der Verarbeitung von personenbezogenen Daten auf dieser Webseite auf.</p>
+            <h4>Verantwortlicher</h4>
+            <p>Historische Dokumentation GmbH<br>
+            Geschichtsstraße 123<br>
+            10115 Berlin</p>
+            <h4>Datenerfassung auf dieser Website</h4>
+            <p>Diese Website verwendet keine Cookies und speichert keine personenbezogenen Daten. Wir verzichten bewusst auf Webanalyse-Tools oder externe Einbindungen, die Daten sammeln könnten.</p>
+        </div>
+    </div>
+
+    <div id="quellenModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('quellenModal')">×</button>
+            <h3 class="modal-title">Quellenangaben</h3>
+            <p>Die Texte dieser Website basieren auf folgenden Quellen:</p>
+            <ul>
+                <li>Herbert, Ulrich: Geschichte der Ausländerpolitik in Deutschland. Saisonarbeiter, Zwangsarbeiter, Gastarbeiter, Flüchtlinge. München 2001.</li>
+                <li>Tooze, Adam: Ökonomie der Zerstörung. Die Geschichte der Wirtschaft im Nationalsozialismus. München 2007.</li>
+                <li>Overy, Richard J.: Die Mobilisierung der deutschen Wirtschaft für Hitlers Kriegführung. In: Das Deutsche Reich und der Zweite Weltkrieg, Bd. 5/1. Stuttgart 1988.</li>
+                <li>Hayes, Peter: Die Degussa im Dritten Reich. Von der Zusammenarbeit zur Mittäterschaft. München 2004.</li>
+                <li>Spoerer, Mark: Zwangsarbeit unter dem Hakenkreuz. Ausländische Zivilarbeiter, Kriegsgefangene und Häftlinge im Deutschen Reich und im besetzten Europa 1939-1945. Stuttgart 2001.</li>
+                <li>Corni, Gustavo und Gies, Horst: Brot, Butter, Kanonen. Die Ernährungswirtschaft in Deutschland unter der Diktatur Hitlers. Berlin 1997.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="kontaktModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('kontaktModal')">×</button>
+            <h3 class="modal-title">Kontakt</h3>
+            <p>Für Fragen, Anregungen oder weitere Informationen können Sie uns gerne kontaktieren:</p>
+            <p>E-Mail: info@historische-dokumentation.de<br>
+            Telefon: +49 30 123456789</p>
+            <p>Postadresse:<br>
+            Historische Dokumentation GmbH<br>
+            Geschichtsstraße 123<br>
+            10115 Berlin</p>
+        </div>
+    </div>
+
+    <script>
+        // Back to Top Button
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+        
+        // Modal Handling
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+        
+        // Close modal when clicking outside of modal content
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('modal');
+            for (let i = 0; i < modals.length; i++) {
+                if (event.target == modals[i]) {
+                    closeModal(modals[i].id);
+                }
+            }
+        };
+        
+        // Mobile Navigation
+        function toggleMobileNav() {
+            const mobileNav = document.getElementById('mobileNav');
+            if (mobileNav.style.display === 'block') {
+                mobileNav.style.display = 'none';
+            } else {
+                mobileNav.style.display = 'block';
+            }
+        }
+        
+        function closeMobileNav() {
+            document.getElementById('mobileNav').style.display = 'none';
+        }
+        
+        // Close mobile nav when window is resized to desktop size
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                closeMobileNav();
+            }
+        });
+        
+        // Make sure links work correctly
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll for all anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                if (anchor.getAttribute('href') !== '#') {
+                    anchor.addEventListener('click', function(e) {
+                        // Only prevent default if it's not a modal link
+                        if (!this.onclick) {
+                            e.preventDefault();
+                            const targetId = this.getAttribute('href');
+                            document.querySelector(targetId).scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+
+</body></html>
